@@ -8,16 +8,15 @@ Source of Image and Poses dataset: http://www.cvlibs.net/datasets/kitti/eval_odo
 
 Implementation Algorithm:
 
-Image Capture: Kt and Kt + 1
+1. Image Capture: Kt and Kt + 1
+2. Undistortion of images:(Distortion happens once lines that are straight in reality become arced in images, hence reimbursement lens distortion).
+3. Using FAST algorithm to detect features in image It, and tracking these features using method regarding optical flow, to It + 1. 
+4. Launch a new search of coordiantes if no. of tracked coordinates are < than the threshold(here 2000).
+5. Implementing Nister's 5-point algorithm along with RANSAC to find required matrix equation.
+6. Estimate R (rotation matrix), t(translation vector) from required matrix established by Nister's algorithm.
+7. Acquire scale information from an external source, such as the speedometer, and concatenate t and R.
 
-Undistortion of images:(Distortion happens once lines that are straight in reality become arced in images, hence reimbursement lens distortion.)
+Results:
 
-Using FAST algorithm to detect features in image It, and tracking these features using method regarding optical flow, to It + 1. 
+![alt text](https://user-images.githubusercontent.com/86003669/123432856-73fcac00-d5e8-11eb-8db2-7841229ca0ae.png)
 
-Launch a new search of coordiantes if no. of tracked coordinates are < than the threshold(here 2000)
-
-Implementing Nister's 5-point algorithm along with RANSAC to find required matrix equation
-
-Estimate R (rotation matrix), t(translation vector) from required matrix established by Nister's algorithm.
-
-Acquire scale information from an external source, such as the speedometer, and concatenate t and R.
